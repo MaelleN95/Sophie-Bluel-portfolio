@@ -97,6 +97,9 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
+/* Introduction */
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -120,10 +123,13 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
+/* portfolio */
+
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
 }
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -132,10 +138,54 @@ li:hover {
 	grid-row-gap: 20px;
 }
 
+.gallery div{
+	overflow: hidden;
+}
+
 .gallery img {
 	width: 100%;
-
 }
+
+.gallery img:hover {
+	transform: scale(1.1);
+	transition: transform .5s;
+}
+
+.filters{
+	display:flex;
+	justify-content: center;
+	margin: 3em;
+}
+
+.filters-button{
+	margin: 5px;
+	padding: 10px 15px;
+	border: #1D6154 solid 1px;
+	border-radius: 60px;
+	font-family: 'Syne';
+	color: #1D6154;
+	background-color: unset;
+	cursor: pointer;
+}
+
+#all-button {
+	background-color: #1D6154;
+	color: white;
+}
+
+.filters-button:hover{
+	background-color: #1d615424;
+	transition: 0.2s linear;
+}
+
+#all-button:hover{
+	background-color: #1d6154c6;
+	color: white;
+	transition: 0.2s linear;
+}
+
+/* contact form */
+
 #contact {
 	width: 50%;
 	margin: auto;
