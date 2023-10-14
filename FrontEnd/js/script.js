@@ -1,6 +1,8 @@
 // Create a variable containing all the projects in the portfolio
 let allProjects = [];
 
+const errorMessage = document.querySelector(".error-message");
+
 // Retrieving projects from the API
 async function fetchWorks () {
   const response = await fetch('http://localhost:5678/api/works');
@@ -14,6 +16,11 @@ fetchWorks().then(works => {
   generateGallery(works);
   allProjects = works;
 })
+.catch((error) => {
+  console.log(error)
+  errorMessage.classList.remove("message-hidden");
+  errorMessage.innerHTML = "<i class=\"fa-solid fa-triangle-exclamation\"></i> Erreur : " + error.message;
+})
 
 // Retrieving categories from the API
 async function fetchCategories () {
@@ -21,11 +28,16 @@ async function fetchCategories () {
   if (response.ok){
     return response.json();
   }
-  throw new Error ("Les catégories n'ont pas pu être chargé");
+  throw new Error ("Les filtres des catégories n'ont pas pu être chargé");
 }
 
 fetchCategories().then(categories => {
   generateFiltersCategories(categories);
+})
+.catch((error) => {
+  console.log(error)
+  errorMessage.classList.remove("message-hidden");
+  errorMessage.innerHTML = "<i class=\"fa-solid fa-triangle-exclamation\"></i> Erreur : " + error.message;
 })
 
 

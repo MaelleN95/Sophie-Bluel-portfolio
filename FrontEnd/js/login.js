@@ -1,5 +1,5 @@
 const form = document.querySelector("form");
-const errorMessage = document.querySelector("#error-message");
+const errorMessage = document.querySelector(".error-message");
 
 form.addEventListener("submit", (event) => {
     
@@ -19,16 +19,15 @@ form.addEventListener("submit", (event) => {
             password: password,
         })
     })
-    // error message if wrong login or password
         .then((r) => {
-            if (!r.ok) {
-                throw new Error("Identifiant ou mot de passe incorrect");
+            if (r.ok){
+                return r.json();
             }
-            return r.json();
+            throw new Error ("Erreur dans l'identifiant ou le mot de passe");
         })
         .then((data) => {
-        console.log("data : ",data);
-            window.localStorage.setItem("jeton", data.token);
+            window.localStorage.setItem("token", data.token);
+            console.log(window.localStorage);
             // Redirect to site page with action buttons for site editing
             window.location.href = "index.html";
         })

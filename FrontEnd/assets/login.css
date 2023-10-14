@@ -1,0 +1,20 @@
+body {
+    max-width: 1140px;
+	margin:auto;
+	font-family: 'Work Sans';
+	font-size: 14px;
+}
+
+#login{
+	width: 35%;
+	margin: auto;
+}
+
+.forgot-password {
+	text-align: center;
+	text-decoration: underline;
+	color: #3D3D3D;
+	font-family: 'Work Sans' ;
+	font-size: 14px;
+	font-weight:500;
+}

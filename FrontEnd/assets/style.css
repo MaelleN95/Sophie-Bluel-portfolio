@@ -47,12 +47,20 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
+
 body {
+    margin: 0;
+    display: flex;
+	flex-direction: column;
+    justify-content: center;
+	background-color: #FFFEF8;
+}
+
+.main-container {
 	max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
-	background-color: #FFFEF8;
 }
 header {
 	display: flex;
@@ -163,7 +171,7 @@ li a:hover {
 .filters{
 	display:flex;
 	justify-content: center;
-	margin: 3em;
+	margin: 2.7em;
 }
 
 .filters-button{
@@ -193,10 +201,9 @@ li a:hover {
 	transition: 0.2s linear;
 }
 
-/* form (contact and login page) */
+/* form */
 
-#contact,
-#login{
+#contact{
 	width: 50%;
 	margin: auto;
 }
@@ -220,9 +227,11 @@ input {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
+
 label {
 	margin: 2em 0 1em 0;
 }
+
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -241,24 +250,23 @@ input[type="submit"]{
 }
 
 input[type="submit"]:hover{
-	background-color: #1d6154c6;
+	background-color: #1d6154db;
 	color: white;
 	transition: 0.2s linear;
 }
-
-.forgot-password {
-	text-align: center;
-	text-decoration: underline;
-	color: #3D3D3D;
-	font-family: 'Work Sans' ;
-	font-size: 14px;
-	font-weight:500;
+input[type="submit"]:active{
+	background-color: #1d615470;
+	
 }
 
-#error-message {
+.error-message {
 	padding: 20px 20px 0 0;
 	font-weight: bold;
 	color: red;
+}
+
+.message-hidden {
+	display: none;
 }
 
 /* footer */
@@ -267,4 +275,36 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em;
+}
+
+/* ************* */
+/* LOGIN VERSION */
+/* ************* */
+
+/* .hidden{
+	display: none;
+} */
+
+.homepage-edit-bar {
+	width: 100%;
+	background-color: black;
+	color: white;
+	text-align: center;
+	padding: 1.25em;
+}
+
+.homepage-edit-bar i{
+	color: white;
+}
+
+.edit-project{
+	display: flex;
+	justify-content: center;
+}
+
+.edit-project-button{
+	margin: 10px 20px;
+	border: 0;
+	background-color: unset;
+	cursor: pointer;
 }
