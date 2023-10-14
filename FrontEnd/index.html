@@ -18,7 +18,7 @@
 </head>
 
 <body>
-<div class="homepage-edit-bar hidden">
+<div class="homepage-edit HE-bar hidden">
 	<p><i class="fa-regular fa-pen-to-square"></i> Mode édition</p>
 </div>
 
@@ -29,8 +29,8 @@
 			<ul>
 				<li><a href="#portfolio">projets</a></li>
 				<li><a href="#contact">contact</a></li>
-				<li><a href="login.html">login</a></li>
-				<li class="homepage-edit hidden"><a href="#">logout</a></li>
+				<li id="loginButton"><a href="login.html">login</a></li>
+				<li id="logoutButton" class="homepage-edit hidden"><a href="#">logout</a></li>
 				<li><a href="https://www.instagram.com/"><img src="./assets/icons/instagram.png" alt="Instagram"></a></li>
 			</ul>
 		</nav>
@@ -52,7 +52,7 @@
 		<section id="portfolio">
 			<div class="edit-project">
 				<h2>Mes Projets</h2>
-				<button class="edit-project-button hidden"><i class="fa-regular fa-pen-to-square"></i> Modifier</button>
+				<button id="editButton" class="homepage-edit hidden"><i class="fa-regular fa-pen-to-square"></i> Modifier</button>
 			</div>
 			<div class="error-message message-hidden"> </div>
 			<div class="filters">

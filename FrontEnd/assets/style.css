@@ -281,11 +281,11 @@ footer nav ul {
 /* LOGIN VERSION */
 /* ************* */
 
-/* .hidden{
+.hidden{
 	display: none;
-} */
+}
 
-.homepage-edit-bar {
+.HE-bar {
 	width: 100%;
 	background-color: black;
 	color: white;
@@ -293,18 +293,23 @@ footer nav ul {
 	padding: 1.25em;
 }
 
-.homepage-edit-bar i{
+.HE-bar i {
 	color: white;
 }
 
 .edit-project{
 	display: flex;
 	justify-content: center;
+	margin: 2.7em;
 }
 
-.edit-project-button{
-	margin: 10px 20px;
+#editButton{
+	padding: 10px 20px;
 	border: 0;
 	background-color: unset;
 	cursor: pointer;
+}
+
+#editButton:hover{
+	color: #B1663C;
 }

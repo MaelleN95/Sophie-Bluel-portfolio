@@ -1,5 +1,6 @@
 // Create a variable containing all the projects in the portfolio
 let allProjects = [];
+let divFilters = document.querySelector(".filters");
 
 const errorMessage = document.querySelector(".error-message");
 
@@ -67,7 +68,6 @@ function generateGallery (works) {
 
 // Create a function to generate filter buttons and make them active
 function generateFiltersCategories(categories) {
-  let divFilters = document.querySelector(".filters");
 
   // Add one button to display all projects without filter
   let allButton = document.createElement("button");
@@ -102,3 +102,31 @@ function generateFiltersCategories(categories) {
     })
   }
 }
+
+/* ***************************************
+******* REDIRECT TO THE ADMIN PAGE *******
+*************************************** */
+
+const homepageEditElements = document.querySelectorAll(".homepage-edit");
+const loginButton = document.getElementById("loginButton");
+const logoutButton = document.getElementById("logoutButton");
+
+// Check if admin connected
+if (localStorage.getItem("token")) {
+  for (i = 0 ; i < homepageEditElements.length ; i++){
+    homepageEditElements[i].classList.remove("hidden");
+  }
+  loginButton.classList.add("hidden");
+  divFilters.classList.add("hidden");
+}
+
+// Logout
+logoutButton.addEventListener("click", () => {
+  window.localStorage.removeItem("token");
+  console.log(window.localStorage);
+  for (i = 0 ; i < homepageEditElements.length ; i++){
+    homepageEditElements[i].classList.add("hidden");
+  }
+  loginButton.classList.remove("hidden");
+  divFilters.classList.remove("hidden");
+})
