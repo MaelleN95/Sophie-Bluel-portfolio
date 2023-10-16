@@ -108,12 +108,24 @@ function generateFiltersCategories(categories) {
 *************************************** */
 
 const homepageEditElements = document.querySelectorAll(".homepage-edit");
+// Retrieving interactive buttons
 const loginButton = document.getElementById("login-button");
 const logoutButton = document.getElementById("logout-button");
+const editButton = document.getElementById("editButton");
+
+// Retrieving modal elements
+const overlay = document.querySelector(".overlay");
+const photoGalleryModal = document.querySelector(".photo-gallery-modal");
+const addPhotoModal = document.querySelector(".add-photo-modal");
+
+const modalCloseButtons = document.querySelectorAll(".modal-close");
+const modalReturnButton = document.querySelector(".modal-return");
+const addPhotoButton = document.getElementById("add-photo-button");
+
 
 // Check if admin connected
 if (localStorage.getItem("token")) {
-  for (i = 0 ; i < homepageEditElements.length ; i++){
+  for (let i = 0 ; i < homepageEditElements.length ; i++){
     homepageEditElements[i].classList.remove("hidden");
   }
   loginButton.classList.add("hidden");
@@ -130,3 +142,43 @@ logoutButton.addEventListener("click", () => {
   loginButton.classList.remove("hidden");
   divFilters.classList.remove("hidden");
 })
+
+// creation of modals opening and closing functions
+
+function openModal (modalName) {
+  overlay.classList.remove("hidden");
+  modalName.classList.remove("hidden");
+}
+
+function closeModal (modalName) {
+  overlay.classList.add("hidden");
+  modalName.classList.add("hidden");
+}
+
+// managing the opening and closing of modals
+
+editButton.addEventListener("click", () => {
+  openModal(photoGalleryModal);
+})
+
+addPhotoButton.addEventListener("click", () => {
+  closeModal(photoGalleryModal);
+  openModal(addPhotoModal);
+})
+
+modalReturnButton.addEventListener("click", () => {
+  closeModal(addPhotoModal);
+  openModal(photoGalleryModal);
+})
+
+overlay.addEventListener("click", () => {
+  closeModal(photoGalleryModal);
+  closeModal(addPhotoModal);
+})
+
+for (i = 0 ; i < modalCloseButtons.length ; i++) {
+  modalCloseButtons[i].addEventListener("click",()=>{
+    closeModal(photoGalleryModal);
+    closeModal(addPhotoModal);
+  })
+}

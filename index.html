@@ -15,7 +15,7 @@
 
 	<link rel="stylesheet" href="./assets/style.css">
 	<link rel="stylesheet" href="./assets/modal.css">
-	
+
 	<script src="./js/script.js" defer></script>
 </head>
 
@@ -94,10 +94,10 @@
 
 <!-- modals -->
 
-<div class="overlay"></div>
+<div class="overlay hidden"></div>
 
-<aside class="modal photo-gallery-modal hidden">
-	<button class="modal-close">
+<div class="modal photo-gallery-modal hidden">
+	<button class="modal-close" title="Quitter le mode édition">
 		<i class="fa-solid fa-xmark"></i>
 	</button>
 	<div class="modal-body">
@@ -133,35 +133,36 @@
 		<hr>
 
 		<div class="div-button">
-			<button class="modal-button" id="add-photo-button">Ajouter une photo</button>
+				<button class="modal-button" id="add-photo-button">Ajouter une photo</button>
 		</div>
 	</div>
-</aside>
+</div>
 
-<aside class="modal add-photo-modal hidden">
-	<button class="modal-close">
+<div class="modal add-photo-modal hidden">
+	<button class="modal-close" title="Quitter le mode édition">
 		<i class="fa-solid fa-xmark"></i>
 	</button>
-	<button class="modal-return">
+	<button class="modal-return"title="Retour à la fenêtre précédente">
 		<i class="fa-solid fa-arrow-left"></i>
 	</button>
 	
 	<div class="modal-body">
 		<h3>Ajout photo</h3>
 
-		<div class="file-upload-block">
-			<i class="fa-sharp fa-regular fa-image"></i>
-			<form>
+		<form id="project-form">
+
+			<div class="file-upload-block">
+				<i class="fa-sharp fa-regular fa-image"></i>
+				
 				<label for="file-upload" class="custom-file-upload">+ Ajouter photo</label>
 				<input type="file" id="file-upload" name="file-upload" accept="image/" required>
-			  </form>
-			<p>jpg, png : 4mo max</p>
-		</div>
+				
+				<p>jpg, png : 4mo max</p>
+			</div>
 
-
-		<form id="project-form">
 			<label for="title">Titre</label>
 			<input type="text" id="title" name="title" required>
+
 			<label for="category">Catégorie</label>
 			<select id="category" name="category" required>
 				<option value="1">Objets</option>
@@ -176,7 +177,7 @@
 			</div>
 		</form>
 	</div>
-</aside>
+</div>
 
 </body>
 </html>
