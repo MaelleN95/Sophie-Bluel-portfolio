@@ -108,8 +108,8 @@ function generateFiltersCategories(categories) {
 *************************************** */
 
 const homepageEditElements = document.querySelectorAll(".homepage-edit");
-const loginButton = document.getElementById("loginButton");
-const logoutButton = document.getElementById("logoutButton");
+const loginButton = document.getElementById("login-button");
+const logoutButton = document.getElementById("logout-button");
 
 // Check if admin connected
 if (localStorage.getItem("token")) {

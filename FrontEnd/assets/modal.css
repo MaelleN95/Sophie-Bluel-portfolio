@@ -1,0 +1,180 @@
+h3{
+    font-family: 'Work Sans' ;
+    font-weight: 400;
+    font-size: 25px;
+    text-align: center;
+    margin: 0.25em 0 1.3em 0;
+}
+
+hr{
+    border: 1px solid #B3B3B3;
+    width: 430px;
+    margin: 30px 0;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 530px;
+    height: 560px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.modal-close{
+    border: 0;
+    background-color: unset;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+}
+
+.modal-close i{
+    padding: 7px;
+}
+
+.modal-close:hover{
+   transform: rotate(90deg);
+   color: #B1663C;
+   transition: 0.3s ease-in-out;
+}
+
+.modal-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.div-button{
+    height: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-button {
+    border: 0;
+    background-color: #1D6154;
+    border-radius: 60px;
+    color: white;
+    font-family: 'Syne';
+    font-size: 14px;
+    padding: 10px 40px; 
+}
+
+.modal-button:hover{
+	background-color: #1d6154db;
+	color: white;
+	transition: 0.2s linear;
+}
+
+.modal-button:active{
+	background-color: #1d615470;
+	
+}
+
+/* ******************* */
+/* Photo gallery modal */
+/* ******************* */
+
+.modal-gallery{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    margin: 0 37px;
+    height: 390px;
+    overflow: auto;
+    border: solid 0.3px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+img{
+    object-fit: cover;
+    width: 100%;
+}
+
+.modal article{
+    position: relative;
+    height: 103px;
+    width: 17.8%;
+    margin: 0.8em 0.3em;
+}
+
+.fa-trash-can {
+    position: absolute;
+    padding: 5px;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
+.fa-trash-can:hover{
+	color: rgb(168, 168, 168);
+	transition: 0.2s linear;
+}
+
+.fa-trash-can:active{
+	color: rgb(76, 76, 76);
+	
+}
+
+/* ******************* */
+/* Photo gallery modal */
+/* ******************* */
+
+.add-photo-modal label {
+    font-family: 'Work Sans' ;
+    font-size: 14px;
+}
+
+.modal-return{
+    border: 0;
+    background-color: unset;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    cursor: pointer;
+}
+
+.modal-return i{
+    padding: 7px;
+}
+
+.modal-return:hover{
+    transform: translate(-5px);
+    color: #B1663C;
+    transition: 0.2s ease-in-out;
+}
+
+select {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+/* file-upload-block */
+
+#file-upload {
+    display : none ; 
+}

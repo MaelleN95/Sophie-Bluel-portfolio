@@ -14,6 +14,8 @@
 	<meta name="description" content="">
 
 	<link rel="stylesheet" href="./assets/style.css">
+	<link rel="stylesheet" href="./assets/modal.css">
+	
 	<script src="./js/script.js" defer></script>
 </head>
 
@@ -29,8 +31,8 @@
 			<ul>
 				<li><a href="#portfolio">projets</a></li>
 				<li><a href="#contact">contact</a></li>
-				<li id="loginButton"><a href="login.html">login</a></li>
-				<li id="logoutButton" class="homepage-edit hidden"><a href="#">logout</a></li>
+				<li id="login-button"><a href="login.html">login</a></li>
+				<li id="logout-button" class="homepage-edit hidden"><a href="#">logout</a></li>
 				<li><a href="https://www.instagram.com/"><img src="./assets/icons/instagram.png" alt="Instagram"></a></li>
 			</ul>
 		</nav>
@@ -89,6 +91,92 @@
 		</nav>
 	</footer>
 </div>
+
+<!-- modals -->
+
+<div class="overlay"></div>
+
+<aside class="modal photo-gallery-modal hidden">
+	<button class="modal-close">
+		<i class="fa-solid fa-xmark"></i>
+	</button>
+	<div class="modal-body">
+		<h3>Galerie photo</h3>
+		<div class="modal-gallery">
+			<!-- Gallery display by JS -->
+			<article>
+				<img src="http://localhost:5678/images/restaurant-sushisen-londres1651287319271.png" alt="">
+				<i class="fa-solid fa-trash-can"></i>
+			</article>
+			<article>
+				<img src="http://localhost:5678/images/la-balisiere1651287350102.png" alt="">
+				<i class="fa-solid fa-trash-can"></i>
+			</article>
+			<article>
+				<img src="http://localhost:5678/images/structures-thermopolis1651287380258.png" alt="">
+				<i class="fa-solid fa-trash-can"></i>
+			</article>
+			<article>
+				<img src="http://localhost:5678/images/appartement-paris-x1651287435459.png" alt="">
+				<i class="fa-solid fa-trash-can"></i>
+			</article>
+			<article>
+				<img src="http://localhost:5678/images/le-coteau-cassis1651287469876.png" alt="">
+				<i class="fa-solid fa-trash-can"></i>
+			</article>
+			<article>
+				<img src="http://localhost:5678/images/villa-ferneze1651287511604.png" alt="">
+				<i class="fa-solid fa-trash-can"></i>
+			</article>
+		</div>
+
+		<hr>
+
+		<div class="div-button">
+			<button class="modal-button" id="add-photo-button">Ajouter une photo</button>
+		</div>
+	</div>
+</aside>
+
+<aside class="modal add-photo-modal hidden">
+	<button class="modal-close">
+		<i class="fa-solid fa-xmark"></i>
+	</button>
+	<button class="modal-return">
+		<i class="fa-solid fa-arrow-left"></i>
+	</button>
+	
+	<div class="modal-body">
+		<h3>Ajout photo</h3>
+
+		<div class="file-upload-block">
+			<i class="fa-sharp fa-regular fa-image"></i>
+			<form>
+				<label for="file-upload" class="custom-file-upload">+ Ajouter photo</label>
+				<input type="file" id="file-upload" name="file-upload" accept="image/" required>
+			  </form>
+			<p>jpg, png : 4mo max</p>
+		</div>
+
+
+		<form id="project-form">
+			<label for="title">Titre</label>
+			<input type="text" id="title" name="title" required>
+			<label for="category">Catégorie</label>
+			<select id="category" name="category" required>
+				<option value="1">Objets</option>
+				<option value="2">Appartements</option>
+				<option value="3">Hotels & restaurants</option>
+			</select>
+
+			<hr>
+
+			<div class="div-button">
+				<button class="modal-button" id="confirm-button" type="submit">Valider</button>
+			</div>
+		</form>
+	</div>
+</aside>
 
 </body>
 </html>

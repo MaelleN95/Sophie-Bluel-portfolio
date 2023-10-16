@@ -161,6 +161,7 @@ li a:hover {
 
 .gallery img {
 	width: 100%;
+	object-fit: cover;
 }
 
 .gallery img:hover {
