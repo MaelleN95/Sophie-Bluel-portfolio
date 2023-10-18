@@ -4,6 +4,18 @@ let divFilters = document.querySelector(".filters");
 
 const errorMessage = document.querySelector(".error-message");
 
+// Function for showing a notification
+function showNotification(message, duration, BgColor) {
+  let notification = document.getElementById('notification');
+  notification.style.backgroundColor = BgColor;
+  notification.textContent = message;
+  notification.classList.remove("hidden");
+
+  setTimeout(() => {
+    notification.classList.add("hidden");
+  }, duration);
+}
+
 // Retrieving projects from the API
 async function fetchWorks () {
   const response = await fetch("http://localhost:5678/api/works");
@@ -21,7 +33,7 @@ fetchWorks().then(works => {
 })
 .catch((error) => {
   console.log(error)
-  errorMessage.classList.remove("message-hidden");
+  errorMessage.classList.remove("hidden");
   errorMessage.innerHTML = "<i class=\"fa-solid fa-triangle-exclamation\"></i> Erreur : " + error.message;
 })
 
@@ -141,6 +153,7 @@ if (localStorage.getItem("token")) {
   }
   loginButton.classList.add("hidden");
   divFilters.classList.add("hidden");
+  showNotification("Connectée",2000,"#40916c");
 }
 
 // Logout
@@ -206,6 +219,12 @@ for (i = 0 ; i < modalCloseButtons.length ; i++) {
 
 
 
+/* ******************************
+************ MODAL 1 ************
+****************************** */
+
+
+
 /* *****************************************
 ** Gallery generation function in modal 1 **
 ***************************************** */
@@ -252,6 +271,7 @@ function deleteElement(element, workId) {
   
   // Delete the item from the gallery page
   element.remove();
+  showNotification("Projet supprimé avec succès !",3000, "#2b9348");
 
   // Make a 'DELETE' request to the API to delete element
   fetch(`http://localhost:5678/api/works/${workId}`, {
@@ -263,7 +283,7 @@ function deleteElement(element, workId) {
   })
   .then(response => {
       if (response.ok) {
-          console.log("Photo supprimée avec succès de l'API");
+        showNotification("Projet supprimé avec succès !",3000, "#2b9348");
       } else {
         console.error("Erreur "+ response.status +" lors de la suppression de la photo de l'API : " + response.statusText);
       }

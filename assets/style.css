@@ -115,6 +115,17 @@ li a:hover {
 	color: #B1663C;
 }
 
+#notification {
+	font-family: 'Work Sans';
+	font-weight: bold;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
 /* Introduction */
 
 #introduction {
@@ -264,10 +275,6 @@ input[type="submit"]:active{
 	padding: 20px 20px 0 0;
 	font-weight: bold;
 	color: red;
-}
-
-.message-hidden {
-	display: none;
 }
 
 /* footer */
