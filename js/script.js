@@ -6,7 +6,7 @@ const errorMessage = document.querySelector(".error-message");
 
 // Retrieving projects from the API
 async function fetchWorks () {
-  const response = await fetch('http://localhost:5678/api/works');
+  const response = await fetch("http://localhost:5678/api/works");
   if (response.ok){
     return response.json();
   }
@@ -15,6 +15,8 @@ async function fetchWorks () {
 
 fetchWorks().then(works => {
   generateGallery(works);
+  generateEditGallery(works);
+  
   allProjects = works;
 })
 .catch((error) => {
@@ -25,7 +27,7 @@ fetchWorks().then(works => {
 
 // Retrieving categories from the API
 async function fetchCategories () {
-  const response = await fetch('http://localhost:5678/api/categories');
+  const response = await fetch("http://localhost:5678/api/categories");
   if (response.ok){
     return response.json();
   }
@@ -103,9 +105,18 @@ function generateFiltersCategories(categories) {
   }
 }
 
+
+
+
+
+
 /* ***************************************
 ******* REDIRECT TO THE ADMIN PAGE *******
 *************************************** */
+
+
+
+
 
 const homepageEditElements = document.querySelectorAll(".homepage-edit");
 // Retrieving interactive buttons
@@ -181,4 +192,83 @@ for (i = 0 ; i < modalCloseButtons.length ; i++) {
     closeModal(photoGalleryModal);
     closeModal(addPhotoModal);
   })
+}
+
+
+
+
+
+/* ***************************************
+************ MODAL MANAGEMENT ************
+*************************************** */
+
+
+
+
+
+/* *****************************************
+** Gallery generation function in modal 1 **
+***************************************** */
+function generateEditGallery (works) {
+  // Retrieving elements from modal 1
+  const modalGallery = document.querySelector(".modal-gallery");
+  modalGallery.innerHTML = "";
+  console.log(works)
+
+  // Generation of the modification gallery via the API
+  for (let i = 0 ; i < works.length ; i++){
+    let article = document.createElement("article");
+    let img = document.createElement("img");
+    let trashIcon = document.createElement("i");
+
+    article.setAttribute("id",i+1)
+    img.setAttribute("src", works[i].imageUrl);
+    img.setAttribute("crossorigin", "anonymous");
+    img.setAttribute("alt", works[i].title);
+    
+    trashIcon.classList.add("fa-solid", "fa-trash-can");
+
+    // Add an event listener for delete when the bin icon is clicked
+    trashIcon.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (confirm("Voulez-vous vraiment supprimer cette photo ? Cette action est irréversible.")) {
+          deleteElement(article, works[i].id);
+          openModal(photoGalleryModal);
+      }
+    });
+
+    // Inserting elements in the DOM
+    modalGallery.appendChild(article);
+    article.appendChild(img);
+    article.appendChild(trashIcon);
+  }
+}
+
+/* ****************************************************************
+** Function for deleting an element from the gallery and the API **
+**************************************************************** */
+function deleteElement(element, workId) {
+  const token = window.localStorage.getItem("token");
+  
+  // Delete the item from the gallery page
+  element.remove();
+
+  // Make a 'DELETE' request to the API to delete element
+  fetch(`http://localhost:5678/api/works/${workId}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": "Bearer " + token,
+        "Accept" : "*/*"
+      }
+  })
+  .then(response => {
+      if (response.ok) {
+          console.log("Photo supprimée avec succès de l'API");
+      } else {
+        console.error("Erreur "+ response.status +" lors de la suppression de la photo de l'API : " + response.statusText);
+      }
+  })
+  .catch(error => {
+      console.error("Erreur "+ error.status +" de connexion à l'API : " + error);
+  });
 }
