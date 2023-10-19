@@ -5,11 +5,14 @@ const submitButton = document.querySelector("input[type=submit]");
 let inputEmail = document.getElementById("email");
 let inputPw = document.getElementById("password");
 
-/* *********************
-**** RegEx function ****
-//******************* */
-// Function that checks a character string against a Regular Expression
-// Returns true if the regEx is respected, otherwise false
+
+
+/**
+ * Function that checks a character string against a Regular Expression
+ * @param {string} string - character string to check
+ * @param {*} regExp - Regular Expression
+ * @returns {boolean} TRUE if the regEx is respected, otherwise FALSE
+ */
 function verifByRegExp(string, regExp){
     if (regExp.test(string)){
         return true
@@ -18,11 +21,12 @@ function verifByRegExp(string, regExp){
     }
 }
 
-/* *********************************
-*** Verification of login and pw ***
-//******************************* */
-// Creation of a function that adds a "submit" event listener to the form
-// and sends the request if the logins and passwords are correct, otherwise displays an error message
+
+
+/**
+ * Function that adds a "submit" event listener to the form and sends the request if the logins and passwords are correct, 
+ * otherwise displays an error message
+ */
 function logIn() {
     form.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -61,11 +65,11 @@ function logIn() {
     });
 }
 
-/* ********************************
-*** verification of user inputs ***
-//****************************** */
-// Creation of a function that starts the verification of the username and password
-// only if the RegEx are respected on the 2 inputs.
+
+
+/**
+ * Function that starts the verification of the username and password only if the RegEx are respected on the 2 inputs.
+ */
 function verifUserInputs(){
     submitButton.disabled = true;
     if ((verifEmail) && (verifPw)){
@@ -77,9 +81,12 @@ function verifUserInputs(){
 
 
 
+
 /* ********************************
 ************ Body code ************
 //****************************** */
+
+
 
 // Creating regEx for an email and a password
 const regExpEmail = new RegExp ('^[a-z][a-z0-9._-]+[a-z0-9_-]@[a-z0-9][a-z0-9.-]+\\.[a-z]{2,10}$');

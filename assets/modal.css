@@ -166,6 +166,14 @@ hr{
     transition: 0.2s ease-in-out;
 }
 
+.add-photo-modal h3{
+    margin-bottom:1.2em;
+}
+
+#project-form{
+    margin: 0;
+}
+
 .add-photo-modal label {
     font-family: 'Work Sans' ;
     font-size: 14px;
