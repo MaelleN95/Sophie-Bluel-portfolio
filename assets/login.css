@@ -19,11 +19,6 @@ body {
 	font-weight:500;
 }
 
-input[type="submit"]:disabled{
-	background-color: #A7A7A7;
-	cursor: auto;
-}
-
 .input-error{
 	box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5);
 }

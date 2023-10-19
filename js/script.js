@@ -4,16 +4,19 @@ let divFilters = document.querySelector(".filters");
 
 const errorMessage = document.querySelector(".error-message");
 
-// Function for showing a notification
+/**
+ * Function for showing a notification.
+ * @param {string} message - Message to display in the notification bubble.
+ * @param {number} duration - Duration in milliseconds of notification display time.
+ * @param {string} BgColor - Notification colour (in quote mark in the format of your choice : values with a keyword, hexadecimal, RGB/A, etc).
+ */
 function showNotification(message, duration, BgColor) {
   let notification = document.getElementById('notification');
   notification.style.backgroundColor = BgColor;
   notification.textContent = message;
   notification.classList.remove("hidden");
 
-  setTimeout(() => {
-    notification.classList.add("hidden");
-  }, duration);
+  setTimeout(() => { notification.classList.add("hidden")}, duration);
 }
 
 // Retrieving projects from the API
@@ -37,6 +40,7 @@ fetchWorks().then(works => {
   errorMessage.innerHTML = "<i class=\"fa-solid fa-triangle-exclamation\"></i> Erreur : " + error.message;
 })
 
+
 // Retrieving categories from the API
 async function fetchCategories () {
   const response = await fetch("http://localhost:5678/api/categories");
@@ -48,6 +52,7 @@ async function fetchCategories () {
 
 fetchCategories().then(categories => {
   generateFiltersCategories(categories);
+  generateFiltersCategoriesInModal(categories);
 })
 .catch((error) => {
   console.log(error)
@@ -56,7 +61,9 @@ fetchCategories().then(categories => {
 })
 
 
-// Creation of a project gallery generation function
+/**
+ * project gallery generation function
+ */
 function generateGallery (works) {
   let divGallery = document.querySelector(".gallery");
   divGallery.innerHTML = "";
@@ -80,7 +87,9 @@ function generateGallery (works) {
 }
 
 
-// Create a function to generate filter buttons and make them active
+/**
+ * Function to generate filter buttons and make them active.
+ */
 function generateFiltersCategories(categories) {
 
   // Add one button to display all projects without filter
@@ -153,7 +162,6 @@ if (localStorage.getItem("token")) {
   }
   loginButton.classList.add("hidden");
   divFilters.classList.add("hidden");
-  showNotification("Connectée",2000,"#40916c");
 }
 
 // Logout
@@ -165,6 +173,7 @@ logoutButton.addEventListener("click", () => {
   }
   loginButton.classList.remove("hidden");
   divFilters.classList.remove("hidden");
+  showNotification("Déconnectée",2000,"#f4a261");
 })
 
 // creation of modals opening and closing functions
@@ -193,17 +202,20 @@ addPhotoButton.addEventListener("click", () => {
 modalReturnButton.addEventListener("click", () => {
   closeModal(addPhotoModal);
   openModal(photoGalleryModal);
+  resetAddPhotoModal();
 })
 
 overlay.addEventListener("click", () => {
   closeModal(photoGalleryModal);
   closeModal(addPhotoModal);
+  resetAddPhotoModal();
 })
 
 for (i = 0 ; i < modalCloseButtons.length ; i++) {
   modalCloseButtons[i].addEventListener("click",()=>{
     closeModal(photoGalleryModal);
     closeModal(addPhotoModal);
+    resetAddPhotoModal();
   })
 }
 
@@ -225,14 +237,13 @@ for (i = 0 ; i < modalCloseButtons.length ; i++) {
 
 
 
-/* *****************************************
-** Gallery generation function in modal 1 **
-***************************************** */
+/**
+ * Project gallery generation function in modal 1.
+ */
 function generateEditGallery (works) {
   // Retrieving elements from modal 1
   const modalGallery = document.querySelector(".modal-gallery");
   modalGallery.innerHTML = "";
-  console.log(works)
 
   // Generation of the modification gallery via the API
   for (let i = 0 ; i < works.length ; i++){
@@ -247,33 +258,34 @@ function generateEditGallery (works) {
     
     trashIcon.classList.add("fa-solid", "fa-trash-can");
 
-    // Add an event listener for delete when the bin icon is clicked
+    // Add an event listener for delete when the trash can icon is clicked
     trashIcon.addEventListener("click", (e) => {
       e.preventDefault();
-      if (confirm("Voulez-vous vraiment supprimer cette photo ? Cette action est irréversible.")) {
+      if (confirm("Voulez-vous vraiment supprimer ce projet ?\nCette action est irréversible.")) {
           deleteElement(article, works[i].id);
           openModal(photoGalleryModal);
       }
     });
 
-    // Inserting elements in the DOM
     modalGallery.appendChild(article);
     article.appendChild(img);
     article.appendChild(trashIcon);
   }
 }
 
-/* ****************************************************************
-** Function for deleting an element from the gallery and the API **
-**************************************************************** */
+
+/**
+ * Function for deleting an element from the gallery and the API.
+ * @param {string} element - Element to be deleted from the gallery.
+ * @param {number} workId - The project ID to be deleted from the API.
+ */
 function deleteElement(element, workId) {
   const token = window.localStorage.getItem("token");
   
   // Delete the item from the gallery page
   element.remove();
-  showNotification("Projet supprimé avec succès !",3000, "#2b9348");
 
-  // Make a 'DELETE' request to the API to delete element
+  // Make a "DELETE" request to the API to delete project
   fetch(`http://localhost:5678/api/works/${workId}`, {
       method: "DELETE",
       headers: {
@@ -285,10 +297,130 @@ function deleteElement(element, workId) {
       if (response.ok) {
         showNotification("Projet supprimé avec succès !",3000, "#2b9348");
       } else {
+        showNotification("Erreur : le projet n'a pas pu être supprimé",3000, "red");
+        // Details of the error in the console
         console.error("Erreur "+ response.status +" lors de la suppression de la photo de l'API : " + response.statusText);
       }
   })
   .catch(error => {
-      console.error("Erreur "+ error.status +" de connexion à l'API : " + error);
+    showNotification("Erreur : le projet n'a pas pu être supprimé",3000, "red");
+    // Details of the error in the console
+    console.error("Erreur "+ error.status +" de connexion à l'API : " + error);
   });
 }
+
+
+
+/* ******************************
+************ MODAL 2 ************
+****************************** */
+
+
+/** 
+ * Function that generates category filters via the API in the add photos modal.
+ */
+function generateFiltersCategoriesInModal(categories){
+  dropDownListCategories = document.getElementById("category");
+
+  for (let i = 0 ; i < categories.length ; i++){
+    let element = document.createElement("option");
+
+    element.value = categories[i].id;
+    element.textContent = categories[i].name;
+
+    dropDownListCategories.appendChild(element);
+  }
+}
+
+/** 
+ * Function that resets the add photo form to zero (including image display).
+ */
+function resetAddPhotoModal(){
+  for (i = 0 ; i < fileUploadBlockElements.length ; i++){
+    fileUploadBlockElements[i].classList.remove("hidden");
+  }
+  imageElement.removeAttribute("src");
+  imageElement.classList.add("hidden");
+  projectForm.reset();
+}
+
+
+// display the image chosen by the user via the input file in 
+// the "file-upload-block" div each time one is selected.
+
+// Select input file element
+const fileInput = document.getElementById("file-upload");
+// Select the div
+const fileUploadBlock = document.querySelector(".file-upload-block");
+// Creation of an element containing all the elements of the div
+let fileUploadBlockElements = document.querySelectorAll(".file-upload-block-elements")
+// Creation of an image element
+const imageElement = document.createElement('img');
+imageElement.classList.add("imgFileInput");
+
+let selectedFile = {}
+
+fileInput.addEventListener("input", (event) => {
+  // Extraction of the file selected by the user
+  selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+        // Creation of a URL object for the selected image so that it can be displayed at a later time
+        const imageUrl = URL.createObjectURL(selectedFile);
+
+        // Assign the image URL to the image element
+        imageElement.setAttribute("src", imageUrl);
+        imageElement.classList.remove("hidden"); // (if it's already hidden because it's not the first time it's chosen an image)
+
+        // Hide elements already present in the div
+        for (i = 0 ; i < fileUploadBlockElements.length ; i++){
+          fileUploadBlockElements[i].classList.add("hidden");
+        }
+        fileUploadBlock.appendChild(imageElement);
+    }
+});
+
+
+//Add a project to the gallery and to the API
+
+const projectForm = document.getElementById('project-form');
+
+projectForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    // Retrieving values from the form
+    const title = document.getElementById("title").value;
+    const category = document.getElementById("category").value;
+
+    // Creation of a FormData object to send data
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+    formData.append("title", title);
+    formData.append("category", category);
+
+    // "POST" request options
+    const requestOptions = {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${window.localStorage.getItem("token")}`
+        },
+        body: formData
+    };
+    
+    // Make a "POST" request to the API to add the project
+    fetch("http://localhost:5678/api/works", requestOptions)
+        .then(response => {
+            if (response.ok) {
+                resetAddPhotoModal();
+                showNotification("Projet ajouté avec succès !",3000, "#2b9348");
+            } else {
+              showNotification("Erreur : le projet n'a pas pu être ajouté",3000, "red");
+              console.error("Erreur lors de l'ajout de la photo à l'API");
+
+            }
+        })
+        .catch(error => {
+          showNotification("Erreur : le projet n'a pas pu être ajouté",3000, "red");
+            console.error("Erreur de connexion à l'API : " + error);
+        });
+});

@@ -1,3 +1,7 @@
+/* This file concerns only the elements of the 2 modals */
+
+/* General (modals) */
+
 h3{
     font-family: 'Work Sans' ;
     font-weight: 400;
@@ -102,8 +106,7 @@ hr{
     overflow: auto;
 }
 
-img{
-    object-fit: cover;
+.modal-gallery img{
     width: 100%;
 }
 
@@ -114,7 +117,7 @@ img{
     margin: 0.8em 0.3em;
 }
 
-.fa-trash-can {
+.modal-gallery .fa-trash-can {
     position: absolute;
     padding: 5px;
     top: 5px;
@@ -124,23 +127,22 @@ img{
     color: white;
 }
 
-.fa-trash-can:hover{
+.modal-gallery .fa-trash-can:hover{
 	color: rgb(168, 168, 168);
 	transition: 0.2s linear;
 }
 
-.fa-trash-can:active{
+.modal-gallery .fa-trash-can:active{
 	color: rgb(76, 76, 76);
 	
 }
 
-/* ******************* */
-/* Photo gallery modal */
-/* ******************* */
+/* ******************** */
+/* **Add photo modal ** */
+/* ******************** */
 
-.add-photo-modal label {
-    font-family: 'Work Sans' ;
-    font-size: 14px;
+.add-photo-modal .modal-body{
+    font-family: 'Work Sans';
 }
 
 .modal-return{
@@ -164,15 +166,65 @@ img{
     transition: 0.2s ease-in-out;
 }
 
-select {
+.add-photo-modal label {
+    font-family: 'Work Sans' ;
+    font-size: 14px;
+}
+
+.add-photo-modal select {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-/* file-upload-block */
+/* div file upload */
+.file-upload-block{
+    background-color:#E8F1F6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 3px;
+}
 
+.fa-image{
+    font-size: 70px;
+    color: #B9C5CC;
+    padding-top: 20px;
+}
+
+.custom-file-upload{
+    margin: 0.8em 0 0.8em 0;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 14px;
+    background-color: #CBD6DC;
+    color: #306685;
+    padding: 12px 30px;
+    cursor: pointer;
+}
+
+.custom-file-upload:hover{
+    background-color: #cbd6dc9c;
+}
+
+.file-upload-block p{
+    font-size: 10px;
+    color: #444444;
+    padding-bottom: 20px;
+}
+
+/* file-upload-block */
 #file-upload {
     display : none ; 
+}
+
+#title,
+#category{
+    font-size: 14px;
+}
+
+.imgFileInput{
+	height: 180px;
+	object-fit: contain;
 }

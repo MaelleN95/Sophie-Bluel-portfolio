@@ -115,12 +115,16 @@ li a:hover {
 	color: #B1663C;
 }
 
+img{
+	object-fit: cover;
+}
+
 #notification {
 	font-family: 'Work Sans';
 	font-weight: bold;
     position: fixed;
-    bottom: 10px;
-    left: 10px;
+    bottom: 15px;
+    left: 20px;
     color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -168,9 +172,11 @@ li a:hover {
 
 .gallery div{
 	overflow: hidden;
+	height: 490px;
 }
 
 .gallery img {
+	height: 490px;
 	width: 100%;
 	object-fit: cover;
 }
@@ -226,6 +232,11 @@ li a:hover {
 	margin-bottom: 20px;
 }
 
+#contact p {
+	text-align: center;
+	font-size: 16px;
+}
+
 form {
 	text-align: left;
 	margin-top:30px;
@@ -271,6 +282,11 @@ input[type="submit"]:active{
 	
 }
 
+input[type="submit"]:disabled{
+	background-color: #A7A7A7;
+	cursor: auto;
+}
+
 .error-message {
 	padding: 20px 20px 0 0;
 	font-weight: bold;
@@ -295,6 +311,7 @@ footer nav ul {
 
 .HE-bar {
 	width: 100%;
+	max-width: 1470px;
 	background-color: black;
 	color: white;
 	text-align: center;

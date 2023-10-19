@@ -128,12 +128,12 @@
 		<form id="project-form">
 
 			<div class="file-upload-block">
-				<i class="fa-sharp fa-regular fa-image"></i>
+				<i class="fa-sharp fa-regular fa-image file-upload-block-elements"></i>
 				
-				<label for="file-upload" class="custom-file-upload">+ Ajouter photo</label>
-				<input type="file" id="file-upload" name="file-upload" accept="image/" required>
+				<label for="file-upload" class="custom-file-upload file-upload-block-elements">+ Ajouter photo</label>
+				<input type="file" id="file-upload" name="file-upload" accept="image/png, image/jpeg" class="file-upload-block-elements" required>
 				
-				<p>jpg, png : 4mo max</p>
+				<p class="file-upload-block-elements">jpg, png : 4mo max</p>
 			</div>
 
 			<label for="title">Titre</label>
@@ -141,9 +141,7 @@
 
 			<label for="category">Catégorie</label>
 			<select id="category" name="category" required>
-				<option value="1">Objets</option>
-				<option value="2">Appartements</option>
-				<option value="3">Hotels & restaurants</option>
+				<!-- Category options displayed by JS -->
 			</select>
 
 			<hr>
