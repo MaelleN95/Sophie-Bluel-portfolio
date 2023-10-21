@@ -56,7 +56,7 @@ fetchCategories().then(categories => {
 })
 .catch((error) => {
   console.log(error)
-  errorMessage.classList.remove("message-hidden");
+  errorMessage.classList.remove("hidden");
   errorMessage.innerHTML = "<i class=\"fa-solid fa-triangle-exclamation\"></i> Erreur : " + error.message;
 })
 
@@ -335,61 +335,33 @@ function generateFiltersCategoriesInModal(categories){
 /** 
  * Function that resets the add photo form to zero (including image display).
  */
-function resetAddPhotoModal(){
+function resetAddPhotoModal() {
   for (i = 0 ; i < fileUploadBlockElements.length ; i++){
     fileUploadBlockElements[i].classList.remove("hidden");
   }
+
+  submitButton.disabled = true;
   imageElement.removeAttribute("src");
   imageElement.classList.add("hidden");
   projectForm.reset();
+  title === null;
+  
+  addPhotoModal.classList.remove("enlarged");
+  errorInputTitle.classList.add("hidden");
+  explainTitleRegEx.classList.add("hidden");
+  labelTitle.style.color = "initial";
+  titleInput.classList.remove("input-error");
 }
 
 
-// display the image chosen by the user via the input file in 
-// the "file-upload-block" div each time one is selected.
-
-// Select input file element
-const fileInput = document.getElementById("file-upload");
-// Select the div
-const fileUploadBlock = document.querySelector(".file-upload-block");
-// Creation of an element containing all the elements of the div
-let fileUploadBlockElements = document.querySelectorAll(".file-upload-block-elements")
-// Creation of an image element
-const imageElement = document.createElement('img');
-imageElement.classList.add("imgFileInput");
-
-let selectedFile = {}
-
-fileInput.addEventListener("input", (event) => {
-  // Extraction of the file selected by the user
-  selectedFile = event.target.files[0];
-
-    if (selectedFile) {
-        // Creation of a URL object for the selected image so that it can be displayed at a later time
-        const imageUrl = URL.createObjectURL(selectedFile);
-
-        // Assign the image URL to the image element
-        imageElement.setAttribute("src", imageUrl);
-        imageElement.classList.remove("hidden"); // (if it's already hidden because it's not the first time it's chosen an image)
-
-        // Hide elements already present in the div
-        for (i = 0 ; i < fileUploadBlockElements.length ; i++){
-          fileUploadBlockElements[i].classList.add("hidden");
-        }
-        fileUploadBlock.appendChild(imageElement);
-    }
-});
-
-
-//Add a project to the gallery and to the API
-
-const projectForm = document.getElementById('project-form');
-
-projectForm.addEventListener("submit", (event) => {
+/**
+ * Function that adds a "submit" event listener to the form and sends the request to add an image if the fields are correctly completed, 
+ * otherwise displays an error message
+ */
+function validateForm() { //logIn in login.js
+  projectForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    // Retrieving values from the form
-    const title = document.getElementById("title").value;
     const category = document.getElementById("category").value;
 
     // Creation of a FormData object to send data
@@ -423,4 +395,154 @@ projectForm.addEventListener("submit", (event) => {
           showNotification("Erreur : le projet n'a pas pu être ajouté",3000, "red");
             console.error("Erreur de connexion à l'API : " + error);
         });
+  });
+}
+
+
+
+/**
+ * Function that starts the add of a project only if the inputs aren't empty and respect the RegEx.
+ * Otherwise, Input error display management.
+ */
+function verifUserInputs(){
+  const labelTitle = document.getElementById("label-title");
+  const explainTitleRegEx = document.getElementById("title-regEx-explication");
+  
+  if (!title) {
+
+    addPhotoModal.classList.remove("enlarged");
+    errorInputTitle.classList.remove("hidden");
+    explainTitleRegEx.classList.add("hidden");
+    errorInputTitle.innerHTML = "Veuillez remplir ce champ.";
+    labelTitle.style.color = "red";
+    titleInput.classList.add("input-error");
+
+  } else if (!verifTitle) {
+
+    addPhotoModal.classList.add("enlarged");
+    errorInputTitle.classList.remove("hidden");
+    explainTitleRegEx.classList.remove("hidden");
+    errorInputTitle.innerHTML = "Veuillez saisir un titre valide.";
+    labelTitle.style.color = "red";
+    titleInput.classList.add("input-error");
+
+  } else {
+
+    addPhotoModal.classList.remove("enlarged");
+    errorInputTitle.classList.add("hidden");
+    explainTitleRegEx.classList.add("hidden");
+    labelTitle.style.color = "initial";
+    titleInput.classList.remove("input-error");
+
+  }
+
+
+  if (!selectedFile.name){
+
+    errorInputFile.classList.remove("hidden");
+    errorInputFile.innerHTML = "Veuillez choisir une image.";
+    fileUploadBlock.classList.add("input-error");
+
+  }else {
+
+    errorInputFile.classList.add("hidden");
+    fileUploadBlock.classList.remove("input-error");
+
+  }
+
+  if ((selectedFile.name) && (verifTitle)) {
+    submitButton.disabled = false;
+    validateForm();
+  }
+}
+
+
+
+
+
+
+/* ********************************
+************ Body code ************
+//****************************** */
+
+
+
+
+
+// Retrieving form elements
+let projectForm = document.getElementById("project-form");
+const submitButton = document.getElementById("confirm-button");
+let titleInput = document.getElementById("title");
+const fileInput = document.getElementById("file-upload");
+
+let errorInputTitle = document.querySelector(".error-input-title");
+let errorInputFile = document.querySelector(".error-input-file")
+
+const fileUploadBlock = document.querySelector(".file-upload-block");
+
+let fileUploadBlockElements = document.querySelectorAll(".file-upload-block-elements")
+
+const imageElement = document.createElement('img');
+imageElement.classList.add("imgFileInput");
+
+let selectedFile = {}
+
+const regExpTitle = new RegExp ('^[A-Z][A-Za-z0-9\\s\'\\(\\)-]{4,30}$');
+
+// Creation of variables whose value is the value of the inputs
+let title = titleInput.value;
+let category = document.getElementById("category").value;
+
+// Creation of the variables that will receive the regEx response
+let verifTitle = false;
+
+// Add "change" listener on the title input
+titleInput.addEventListener("change",()=>{
+    // Updating the value of the input
+    title = titleInput.value;
+    // Execution of the regEx verification function
+    verifTitle = regExpTitle.test(title);
+    // Depending on the answer, add or remove a class that indicates an error to the user 
+    // ("input-error" circles the field in red)
+    verifUserInputs();  
+});
+
+// display the image chosen by the user via the input file in the "file-upload-block" div each time one is selected.
+fileInput.addEventListener("input", (event) => {
+  // Extraction of the file selected by the user
+  selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      const maxSizeInBytes = 1 * 1024 * 1024;
+      console.log("taille fic :",selectedFile.size)
+      console.log("max :",maxSizeInBytes)
+
+      // check file size
+      if (selectedFile.size > maxSizeInBytes) {
+
+        errorInputFile.classList.remove("hidden");
+        errorInputFile.innerHTML = "La taille du fichier est supérieure à 4 Mo. Veuillez choisir un fichier plus petit.";
+        fileUploadBlock.classList.add("input-error");
+
+      } else {
+
+        fileUploadBlock.classList.remove("input-error");
+        // Creation of a URL object for the selected image so that it can be displayed at a later time
+        const imageUrl = URL.createObjectURL(selectedFile);
+
+        // Assign the image URL to the image element
+        imageElement.setAttribute("src", imageUrl);
+        imageElement.classList.remove("hidden"); // if it's already hidden because it's not the first time it's chosen an image
+
+        // Hide elements already present in the div
+        for (i = 0 ; i < fileUploadBlockElements.length ; i++){
+          fileUploadBlockElements[i].classList.add("hidden");
+        }
+
+        fileUploadBlock.appendChild(imageElement);
+
+        verifUserInputs();
+
+      }
+    }
 });

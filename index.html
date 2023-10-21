@@ -135,19 +135,23 @@
 				
 				<p class="file-upload-block-elements">jpg, png : 4mo max</p>
 			</div>
+			<div class="error-message error-input-file hidden"></div>
 
-			<label for="title">Titre</label>
-			<input type="text" id="title" name="title" required>
+			<label id="label-title" for="title">Titre</label>
+			<input minlength="4" maxlength="30" type="text" id="title" name="title" required>
+			<div class="error-message error-input-title hidden"> </div>
+			<div id="title-regEx-explication" class="hidden">Un titre valide comporte 4 caractères minimum et débute par une majuscule. Les accents ne sont pas autorisés. <br>Liste des caractères autorisés : <span>( ) - '</span></div>
 
 			<label for="category">Catégorie</label>
 			<select id="category" name="category" required>
 				<!-- Category options displayed by JS -->
 			</select>
 
-			<hr>
+			
 
 			<div class="div-button">
-				<button class="modal-button" id="confirm-button" type="submit">Valider</button>
+				<hr>
+				<button class="modal-button" id="confirm-button" type="submit" disabled>Valider</button>
 			</div>
 		</form>
 	</div>
