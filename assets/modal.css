@@ -147,7 +147,11 @@ hr{
 }
 
 .enlarged {
-    height: 610px;
+    height: 605px;
+}
+
+.enlarged-for-img {
+    height: 585px;
 }
 
 .modal-return{
@@ -177,7 +181,7 @@ hr{
 
 #project-form{
     margin: 0;
-    max-width: 440px;
+    max-width: 500px;
 }
 
 .add-photo-modal label {

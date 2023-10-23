@@ -37,9 +37,9 @@
 
             <form action="#">
                 <label for="email">E-mail</label>
-                <input type="email" name="email" id="email" required>
+                <input type="email" name="email" id="email" minlength="4" maxlength="256" required>
                 <label for="password">Mot de passe</label>
-                <input type="password" name="password" id="password" required>
+                <input type="password" name="password" id="password" minlength="4" maxlength="30" required>
                 <div class="login-error-message error-message"></div>
                 <input type="submit" value="Se connecter" disabled>        
             </form>

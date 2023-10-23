@@ -125,7 +125,7 @@
 	<div class="modal-body">
 		<h3>Ajout photo</h3>
 
-		<form id="project-form">
+		<form method="post" id="project-form">
 
 			<div class="file-upload-block">
 				<i class="fa-sharp fa-regular fa-image file-upload-block-elements"></i>
@@ -138,7 +138,7 @@
 			<div class="error-message error-input-file hidden"></div>
 
 			<label id="label-title" for="title">Titre</label>
-			<input minlength="4" maxlength="30" type="text" id="title" name="title" required>
+			<input minlength="4" maxlength="26" type="text" id="title" name="title" required>
 			<div class="error-message error-input-title hidden"> </div>
 			<div id="title-regEx-explication" class="hidden">Un titre valide comporte 4 caractères minimum et débute par une majuscule. Les accents ne sont pas autorisés. <br>Liste des caractères autorisés : <span>( ) - '</span></div>
 

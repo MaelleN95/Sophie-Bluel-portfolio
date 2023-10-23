@@ -263,7 +263,6 @@ function generateEditGallery (works) {
       e.preventDefault();
       if (confirm("Voulez-vous vraiment supprimer ce projet ?\nCette action est irréversible.")) {
           deleteElement(article, works[i].id);
-          openModal(photoGalleryModal);
       }
     });
 
@@ -336,66 +335,30 @@ function generateFiltersCategoriesInModal(categories){
  * Function that resets the add photo form to zero (including image display).
  */
 function resetAddPhotoModal() {
-  for (i = 0 ; i < fileUploadBlockElements.length ; i++){
-    fileUploadBlockElements[i].classList.remove("hidden");
-  }
-
   submitButton.disabled = true;
+  addPhotoModal.classList.remove("enlarged");
+
+  selectedFile.name = "";
+  selectedFile = {};
   imageElement.removeAttribute("src");
   imageElement.classList.add("hidden");
-  projectForm.reset();
-  title === null;
+  errorInputFile.innerHTML = "";
+  errorInputFile.classList.add("hidden");
+  fileUploadBlock.classList.remove("input-error");
+  for (i = 0 ; i < fileUploadBlockElements.length ; i++) {
+    fileUploadBlockElements[i].classList.remove("hidden");
+  }
   
-  addPhotoModal.classList.remove("enlarged");
+  
+  title = null;
+  verifTitle = false;
+  errorInputTitle.innerHTML = "";
   errorInputTitle.classList.add("hidden");
   explainTitleRegEx.classList.add("hidden");
   labelTitle.style.color = "initial";
   titleInput.classList.remove("input-error");
-}
 
-
-/**
- * Function that adds a "submit" event listener to the form and sends the request to add an image if the fields are correctly completed, 
- * otherwise displays an error message
- */
-function validateForm() { //logIn in login.js
-  projectForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const category = document.getElementById("category").value;
-
-    // Creation of a FormData object to send data
-    const formData = new FormData();
-    formData.append("image", selectedFile);
-    formData.append("title", title);
-    formData.append("category", category);
-
-    // "POST" request options
-    const requestOptions = {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${window.localStorage.getItem("token")}`
-        },
-        body: formData
-    };
-    
-    // Make a "POST" request to the API to add the project
-    fetch("http://localhost:5678/api/works", requestOptions)
-        .then(response => {
-            if (response.ok) {
-                resetAddPhotoModal();
-                showNotification("Projet ajouté avec succès !",3000, "#2b9348");
-            } else {
-              showNotification("Erreur : le projet n'a pas pu être ajouté",3000, "red");
-              console.error("Erreur lors de l'ajout de la photo à l'API");
-
-            }
-        })
-        .catch(error => {
-          showNotification("Erreur : le projet n'a pas pu être ajouté",3000, "red");
-            console.error("Erreur de connexion à l'API : " + error);
-        });
-  });
+  projectForm.reset();
 }
 
 
@@ -405,8 +368,6 @@ function validateForm() { //logIn in login.js
  * Otherwise, Input error display management.
  */
 function verifUserInputs(){
-  const labelTitle = document.getElementById("label-title");
-  const explainTitleRegEx = document.getElementById("title-regEx-explication");
   
   if (!title) {
 
@@ -418,7 +379,6 @@ function verifUserInputs(){
     titleInput.classList.add("input-error");
 
   } else if (!verifTitle) {
-
     addPhotoModal.classList.add("enlarged");
     errorInputTitle.classList.remove("hidden");
     explainTitleRegEx.classList.remove("hidden");
@@ -427,7 +387,7 @@ function verifUserInputs(){
     titleInput.classList.add("input-error");
 
   } else {
-
+    errorInputTitle.innerHTML = "";
     addPhotoModal.classList.remove("enlarged");
     errorInputTitle.classList.add("hidden");
     explainTitleRegEx.classList.add("hidden");
@@ -438,13 +398,11 @@ function verifUserInputs(){
 
 
   if (!selectedFile.name){
-
     errorInputFile.classList.remove("hidden");
     errorInputFile.innerHTML = "Veuillez choisir une image.";
     fileUploadBlock.classList.add("input-error");
 
   }else {
-
     errorInputFile.classList.add("hidden");
     fileUploadBlock.classList.remove("input-error");
 
@@ -452,7 +410,6 @@ function verifUserInputs(){
 
   if ((selectedFile.name) && (verifTitle)) {
     submitButton.disabled = false;
-    validateForm();
   }
 }
 
@@ -473,10 +430,12 @@ function verifUserInputs(){
 let projectForm = document.getElementById("project-form");
 const submitButton = document.getElementById("confirm-button");
 let titleInput = document.getElementById("title");
+const labelTitle = document.getElementById("label-title");
 const fileInput = document.getElementById("file-upload");
 
 let errorInputTitle = document.querySelector(".error-input-title");
-let errorInputFile = document.querySelector(".error-input-file")
+let errorInputFile = document.querySelector(".error-input-file");
+const explainTitleRegEx = document.getElementById("title-regEx-explication");
 
 const fileUploadBlock = document.querySelector(".file-upload-block");
 
@@ -487,7 +446,7 @@ imageElement.classList.add("imgFileInput");
 
 let selectedFile = {}
 
-const regExpTitle = new RegExp ('^[A-Z][A-Za-z0-9\\s\'\\(\\)-]{4,30}$');
+const regExpTitle = new RegExp ('^[A-Z][A-Za-z0-9\\s\'\\(\\)-]{3,26}$');
 
 // Creation of variables whose value is the value of the inputs
 let title = titleInput.value;
@@ -500,6 +459,7 @@ let verifTitle = false;
 titleInput.addEventListener("change",()=>{
     // Updating the value of the input
     title = titleInput.value;
+    verifTitle = false;
     // Execution of the regEx verification function
     verifTitle = regExpTitle.test(title);
     // Depending on the answer, add or remove a class that indicates an error to the user 
@@ -514,19 +474,19 @@ fileInput.addEventListener("input", (event) => {
 
     if (selectedFile) {
       const maxSizeInBytes = 1 * 1024 * 1024;
-      console.log("taille fic :",selectedFile.size)
-      console.log("max :",maxSizeInBytes)
 
       // check file size
       if (selectedFile.size > maxSizeInBytes) {
-
+        addPhotoModal.classList.add("enlarged-for-img");
         errorInputFile.classList.remove("hidden");
         errorInputFile.innerHTML = "La taille du fichier est supérieure à 4 Mo. Veuillez choisir un fichier plus petit.";
         fileUploadBlock.classList.add("input-error");
 
       } else {
-
+        addPhotoModal.classList.remove("enlarged-for-img");
         fileUploadBlock.classList.remove("input-error");
+        errorInputFile.classList.add("hidden");
+        
         // Creation of a URL object for the selected image so that it can be displayed at a later time
         const imageUrl = URL.createObjectURL(selectedFile);
 
@@ -545,4 +505,44 @@ fileInput.addEventListener("input", (event) => {
 
       }
     }
+});
+
+
+//adds a "submit" event listener to the form and sends the request to add an image if the fields are correctly completed, otherwise displays an error message
+projectForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const category = document.getElementById("category").value;
+
+  // Creation of a FormData object to send data
+  const formData = new FormData();
+  formData.append("image", selectedFile);
+  formData.append("title", title);
+  formData.append("category", category);
+
+  // "POST" request options
+  const requestOptions = {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${window.localStorage.getItem("token")}`
+      },
+      body: formData
+  };
+  
+  // Make a "POST" request to the API to add the project
+  fetch("http://localhost:5678/api/works", requestOptions)
+      .then(response => {
+          if (response.ok) {
+              resetAddPhotoModal();
+              showNotification("Projet ajouté avec succès !",3000, "#2b9348");
+          } else {
+            showNotification("Erreur : le projet n'a pas pu être ajouté",3000, "red");
+            console.error("Erreur "+ response.status +" lors de l'ajout de la photo à l'API : " + response.statusTextErreur);
+
+          }
+      })
+      .catch(error => {
+        showNotification("Erreur : le projet n'a pas pu être ajouté",3000, "red");
+          console.error("Erreur de connexion à l'API : " + error);
+      });
 });
