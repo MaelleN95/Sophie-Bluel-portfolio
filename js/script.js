@@ -262,7 +262,7 @@ function generateEditGallery (works) {
     trashIcon.addEventListener("click", (e) => {
       e.preventDefault();
       if (confirm("Voulez-vous vraiment supprimer ce projet ?\nCette action est irréversible.")) {
-          deleteElement(article, works[i].id);
+          deleteElement(works[i].id);
       }
     });
 
@@ -275,14 +275,10 @@ function generateEditGallery (works) {
 
 /**
  * Function for deleting an element from the gallery and the API.
- * @param {string} element - Element to be deleted from the gallery.
  * @param {number} workId - The project ID to be deleted from the API.
  */
-function deleteElement(element, workId) {
+function deleteElement(workId) {
   const token = window.localStorage.getItem("token");
-  
-  // Delete the item from the gallery page
-  element.remove();
 
   // Make a "DELETE" request to the API to delete project
   fetch(`http://localhost:5678/api/works/${workId}`, {
@@ -349,7 +345,6 @@ function resetAddPhotoModal() {
     fileUploadBlockElements[i].classList.remove("hidden");
   }
   
-  
   title = null;
   verifTitle = false;
   errorInputTitle.innerHTML = "";
@@ -368,10 +363,9 @@ function resetAddPhotoModal() {
  * Otherwise, Input error display management.
  */
 function verifUserInputs(){
-  
+  submitButton.disabled = true;
   if (!title) {
-
-    addPhotoModal.classList.remove("enlarged");
+    addPhotoModal.classList.add("enlarged");
     errorInputTitle.classList.remove("hidden");
     explainTitleRegEx.classList.add("hidden");
     errorInputTitle.innerHTML = "Veuillez remplir ce champ.";
@@ -393,7 +387,6 @@ function verifUserInputs(){
     explainTitleRegEx.classList.add("hidden");
     labelTitle.style.color = "initial";
     titleInput.classList.remove("input-error");
-
   }
 
 
@@ -462,28 +455,31 @@ titleInput.addEventListener("change",()=>{
     verifTitle = false;
     // Execution of the regEx verification function
     verifTitle = regExpTitle.test(title);
-    // Depending on the answer, add or remove a class that indicates an error to the user 
-    // ("input-error" circles the field in red)
+    // run the verification of user inputs
     verifUserInputs();  
 });
 
 // display the image chosen by the user via the input file in the "file-upload-block" div each time one is selected.
-fileInput.addEventListener("input", (event) => {
+fileInput.addEventListener("change", (event) => {
   // Extraction of the file selected by the user
   selectedFile = event.target.files[0];
 
     if (selectedFile) {
-      const maxSizeInBytes = 1 * 1024 * 1024;
+      const maxSizeInBytes = 4 * 1024 * 1024;
+
+      console.log(maxSizeInBytes)
+      console.log("mon fic :", selectedFile.size)
 
       // check file size
       if (selectedFile.size > maxSizeInBytes) {
-        addPhotoModal.classList.add("enlarged-for-img");
+        addPhotoModal.classList.add("enlarged");
         errorInputFile.classList.remove("hidden");
         errorInputFile.innerHTML = "La taille du fichier est supérieure à 4 Mo. Veuillez choisir un fichier plus petit.";
         fileUploadBlock.classList.add("input-error");
+        selectedFile = {};
 
       } else {
-        addPhotoModal.classList.remove("enlarged-for-img");
+        addPhotoModal.classList.remove("enlarged");
         fileUploadBlock.classList.remove("input-error");
         errorInputFile.classList.add("hidden");
         
@@ -502,7 +498,6 @@ fileInput.addEventListener("input", (event) => {
         fileUploadBlock.appendChild(imageElement);
 
         verifUserInputs();
-
       }
     }
 });

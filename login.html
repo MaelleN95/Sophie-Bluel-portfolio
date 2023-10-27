@@ -25,7 +25,7 @@
             <ul>
                 <li><a href="index.html#portfolio">projets</a></li>
                 <li><a href="index.html#contact">contact</a></li>
-                <li title="Vous vous trouvez déjà sur la page de login">login</li>
+                <li id="login-button">login</li>
                 <li><a href="https://www.instagram.com/"><img src="./assets/icons/instagram.png" alt="Instagram"></a></li>
             </ul>
         </nav>
@@ -37,9 +37,9 @@
 
             <form action="#">
                 <label for="email">E-mail</label>
-                <input type="email" name="email" id="email" minlength="4" maxlength="256" required>
+                <input type="email" name="email" id="email" minlength="4" maxlength="50" required>
                 <label for="password">Mot de passe</label>
-                <input type="password" name="password" id="password" minlength="4" maxlength="30" required>
+                <input type="password" name="password" id="password" minlength="3" maxlength="30" required>
                 <div class="login-error-message error-message"></div>
                 <input type="submit" value="Se connecter" disabled>        
             </form>
@@ -47,7 +47,7 @@
         </section>
     </main>
 
-    <footer>
+    <footer id="footer-login">
         <nav>
             <ul>
                 <li>Mentions Légales</li>

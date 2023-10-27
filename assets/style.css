@@ -62,11 +62,15 @@ body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
+
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0;
+	margin: 50px 80px;
+	font-family: 'Work Sans' ;
+	font-size: 14px;
 }
+
 section {
 	margin: 50px 0;
 }
@@ -103,7 +107,7 @@ nav ul {
 
 }
 nav li {
-	padding: 0 10px;
+	padding: 0 25px;
 	font-size: 1.2em;
 	cursor: pointer;
 }
@@ -117,6 +121,10 @@ li a:hover {
 
 img{
 	object-fit: cover;
+}
+
+nav img{
+	height: 1.3em;
 }
 
 #notification {
@@ -309,10 +317,18 @@ button[type="submit"]:disabled{
 
 /* footer */
 
+footer{
+	font-family: 'Work Sans' ;
+	font-size: 14px;
+	font-weight: 300;
+	width: 100%;
+	background-color: white;
+}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em;
+	margin: 1.6em;
 }
 
 /* ************* */
@@ -325,11 +341,13 @@ footer nav ul {
 
 .HE-bar {
 	width: 100%;
-	max-width: 1470px;
+	font-family: 'Work Sans';
+	font-size: 16px;
 	background-color: black;
 	color: white;
 	text-align: center;
-	padding: 1.25em;
+	padding-top: 1.25em;
+	padding-bottom: 1.25em;
 }
 
 .HE-bar i {

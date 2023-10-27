@@ -10,6 +10,11 @@ body {
 	margin: auto;
 }
 
+#login-button{
+	font-weight: bold;
+	cursor: auto;
+}
+
 .forgot-password {
 	text-align: center;
 	text-decoration: underline;
@@ -17,4 +22,10 @@ body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 	font-weight:500;
+}
+
+#footer-login{
+	position: fixed;
+  	bottom: 0;
+  	left: 0;
 }

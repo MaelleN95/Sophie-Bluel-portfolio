@@ -147,11 +147,7 @@ hr{
 }
 
 .enlarged {
-    height: 605px;
-}
-
-.enlarged-for-img {
-    height: 585px;
+    height: 610px;
 }
 
 .modal-return{
@@ -181,7 +177,7 @@ hr{
 
 #project-form{
     margin: 0;
-    max-width: 500px;
+    max-width: 460px;
 }
 
 .add-photo-modal label {
@@ -254,6 +250,7 @@ hr{
 
 .imgFileInput{
 	height: 180px;
+    width: 100%;
 	object-fit: contain;
 }
 
