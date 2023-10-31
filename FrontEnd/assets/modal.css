@@ -46,6 +46,7 @@ hr{
     top: 8px;
     right: 8px;
     cursor: pointer;
+    transition: 0.3s ease-in-out;
 }
 
 .modal-close i{
@@ -79,7 +80,8 @@ hr{
     color: white;
     font-family: 'Syne';
     font-size: 14px;
-    padding: 10px 40px; 
+    padding: 10px 40px;
+    transition: 0.2s linear;
 }
 
 .modal-button:hover{
@@ -126,6 +128,7 @@ hr{
     cursor: pointer;
     background-color: black;
     color: white;
+    transition: 0.2s linear;
 }
 
 .modal-gallery .fa-trash-can:hover{
@@ -159,6 +162,7 @@ hr{
     top: 8px;
     left: 10px;
     cursor: pointer;
+    transition: 0.2s ease-in-out;
 }
 
 .modal-return i{
