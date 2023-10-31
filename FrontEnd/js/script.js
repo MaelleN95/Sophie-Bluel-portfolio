@@ -329,6 +329,7 @@ function deleteElement(workId) {
  */
 function generateFiltersCategoriesInModal(categories){
   dropDownListCategories = document.getElementById("category");
+  dropDownListCategories.innerHTML="";
 
   for (let i = 0 ; i < categories.length ; i++){
     let element = document.createElement("option");
