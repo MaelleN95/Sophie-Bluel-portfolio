@@ -97,13 +97,19 @@ function generateFiltersCategories(categories) {
 
   allButton.textContent = "Tous";
   allButton.classList.add("filters-button");
-  allButton.setAttribute("id","all-button");
-
+  allButton.classList.add("selected-button");
   divFilters.appendChild(allButton);
 
   // "allButton" click management
   allButton.addEventListener("click", () => {
     generateGallery(allProjects);
+    
+    let buttons = document.querySelectorAll(".filters-button");
+    for (let i = 0 ; i < categories.length+1 ; i++) {
+      buttons[i].classList.remove("selected-button");
+    }
+    allButton.classList.add("selected-button");
+
   });
   
   // "for" loop to browse all filter categories
@@ -115,9 +121,16 @@ function generateFiltersCategories(categories) {
     button.classList.add("filters-button");
 
     divFilters.appendChild(button);
-
+    
     // click management for each button
     button.addEventListener("click", () => {
+
+      let buttons = document.querySelectorAll(".filters-button");
+      for (let i = 0 ; i < categories.length+1 ; i++) {
+        buttons[i].classList.remove("selected-button");
+      }
+      button.classList.add("selected-button")
+
       const filteredProjects = allProjects.filter( (project) => {
         return project.categoryId === categories[i].id;
       })

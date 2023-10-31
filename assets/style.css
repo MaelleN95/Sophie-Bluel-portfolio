@@ -219,7 +219,7 @@ nav img{
 	cursor: pointer;
 }
 
-#all-button {
+.selected-button {
 	background-color: #1D6154;
 	color: white;
 }
@@ -229,7 +229,7 @@ nav img{
 	transition: 0.2s linear;
 }
 
-#all-button:hover{
+.selected-button:hover{
 	background-color: #1d6154c6;
 	color: white;
 	transition: 0.2s linear;

@@ -1,12 +1,11 @@
 body {
-    max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans';
 	font-size: 14px;
 }
 
 #login{
-	width: 35%;
+	width: 30%;
 	margin: auto;
 }
 
