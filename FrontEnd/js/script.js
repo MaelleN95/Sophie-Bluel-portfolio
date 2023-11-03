@@ -453,7 +453,7 @@ imageElement.classList.add("imgFileInput");
 
 let selectedFile = {}
 
-const regExpTitle = new RegExp ('^[A-Z][A-Za-z0-9\\s\'\\(\\)-]{3,26}$');
+const regExpTitle = new RegExp ('^[A-Z][A-Za-z0-9&\\s\'\\(\\)-]{3,26}$');
 
 // Creation of variables whose value is the value of the inputs
 let title = titleInput.value;
