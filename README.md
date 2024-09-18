@@ -23,6 +23,7 @@ Il comprend l'intégration des travaux de l'architecte ainsi que la création de
 Ce projet est réalisé dans le cadre de la formation [Développeur Web](https://openclassrooms.com/fr/paths/899-developpeur-web) chez OpenClassrooms.
 
 ## Fonctionnalités
+
 - Affichage dynamique des travaux de l'architecte à partir d'une API back-end
 - Filtrage des travaux par catégorie
 - Authentification de l'administrateur avec une page de connexion
@@ -43,8 +44,8 @@ Ce projet est réalisé dans le cadre de la formation [Développeur Web](https:/
 
 ## Utilisation
 
-1. Accéder à la page de connexion via votre navigateur.
-2. Ouvrir le fichier `identifiants.txt` pour récupérer les identifiants de connexion.
+1. Accédez à la page de connexion via votre navigateur.
+2. Ouvrez le fichier `identifiants.txt` pour récupérer les identifiants de connexion.
 3. Connectez-vous avec les identifiants fournis pour accéder à l'administration.
 4. Une fois connecté, vous pourrez :
    - Ajouter de nouveaux projets via la modale d'ajout.
