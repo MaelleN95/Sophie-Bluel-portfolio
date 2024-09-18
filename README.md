@@ -1,4 +1,5 @@
 # Portfolio de Sophie Bluel
+![banner-sb](https://github.com/user-attachments/assets/a99aff25-b0c6-4f97-a1c8-eab2acd626c2)
 
 ## Sommaire
 
