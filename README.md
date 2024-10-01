@@ -33,9 +33,10 @@ Ce projet est réalisé dans le cadre de la formation [Développeur Web](https:/
 1. Clonez le repository :
    ```bash
     git clone https://github.com/MaelleN95/Sophie-Bluel-portfolio.git
+    cd Sophie-Bluel-portfolio
 2. Installez les dépendances du back-end :
    ```bash
-   cd backend
+   cd Backend
    npm install
 3. Démarrez le serveur back-end :
    ```bash
